@@ -25,6 +25,10 @@ import java.util.Arrays;
  * @version Version 1.18
  */
 public class ProtoCommon {
+
+  /**
+   * fastdfs服务器命令byte
+   */
   public static final byte FDFS_PROTO_CMD_QUIT = 82;
   public static final byte TRACKER_PROTO_CMD_SERVER_LIST_GROUP = 91;
   public static final byte TRACKER_PROTO_CMD_SERVER_LIST_STORAGE = 92;
