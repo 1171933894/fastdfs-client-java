@@ -13,8 +13,10 @@ public class Connection {
 
     private Socket sock;
     private InetSocketAddress inetSockAddr;
+    // 最后一次使用时间
     private Long lastAccessTime = System.currentTimeMillis();
 
+    // 是否需要连接活跃测试，在获取连接时向服务端发送消息，查看服务端是否返回OK消息
     private boolean needActiveTest = false;
 
     public Connection(Socket sock, InetSocketAddress inetSockAddr) {

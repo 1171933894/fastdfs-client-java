@@ -17,16 +17,18 @@ public class ConnectionManager {
 
     /**
      * total create connection pool
+     * 连接池中连接总数
      */
     private AtomicInteger totalCount = new AtomicInteger();
 
     /**
      * free connection count
+     * 连接池中空闲连接数
      */
     private AtomicInteger freeCount = new AtomicInteger();
 
     /**
-     * lock
+     * lock 公平锁
      */
     private ReentrantLock lock = new ReentrantLock(true);
 
@@ -50,10 +52,13 @@ public class ConnectionManager {
         try {
             Connection connection = null;
             while (true) {
+                // 先判读是否有空闲连接，如果有则从中取
                 if (freeCount.get() > 0) {
                     freeCount.decrementAndGet();
                     connection = freeConnections.poll();
+                    // 连接失效或者连接超过空闲时间
                     if (!connection.isAvaliable() || (System.currentTimeMillis() - connection.getLastAccessTime()) > ClientGlobal.g_connection_pool_max_idle_time) {
+                        // 物理关闭连接
                         closeConnection(connection);
                         continue;
                     }
@@ -66,6 +71,7 @@ public class ConnectionManager {
                             isActive = false;
                         }
                         if (!isActive) {
+                            // 物理关闭连接
                             closeConnection(connection);
                             continue;
                         } else {
@@ -73,12 +79,14 @@ public class ConnectionManager {
                         }
                     }
                 } else if (ClientGlobal.g_connection_pool_max_count_per_entry == 0 || totalCount.get() < ClientGlobal.g_connection_pool_max_count_per_entry) {
+                    // 没有空闲连接且连接数没有达到最大则新建连接
                     connection = ConnectionFactory.create(this.inetSocketAddress);
-                    totalCount.incrementAndGet();
+                    totalCount.incrementAndGet();// 增加最大连接数计数器
                 } else {
                     try {
                         if (condition.await(ClientGlobal.g_connection_pool_max_wait_time_in_ms, TimeUnit.MILLISECONDS)) {
-                            //wait single success
+                            // wait single success
+                            // 如果没有在最大等待时间内没有被唤醒，那么直接抛出异常，获取连接失败
                             continue;
                         }
                         throw new MyException("connect to server " + inetSocketAddress.getAddress().getHostAddress() + ":" + inetSocketAddress.getPort() + " fail, wait_time > " + ClientGlobal.g_connection_pool_max_wait_time_in_ms + "ms");
