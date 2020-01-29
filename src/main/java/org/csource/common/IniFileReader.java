@@ -31,8 +31,10 @@ public class IniFileReader {
   }
 
   public static ClassLoader classLoader() {
+    // 使用Thread.currentThread().getContextClassLoader()来获取WebAppClassLoader来加载，不然通过ApplicationClassLoader会报错
     ClassLoader loader = Thread.currentThread().getContextClassLoader();
     if (loader == null) {
+      // ClassLoader.getSystemClassLoader方法无论何时均会返回ApplicationClassLoader,其只加载classpath下的class文件
       loader = ClassLoader.getSystemClassLoader();
     }
     return loader;

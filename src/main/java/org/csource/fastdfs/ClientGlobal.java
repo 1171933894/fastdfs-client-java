@@ -88,6 +88,7 @@ public class ClientGlobal {
     String[] szTrackerServers;
     String[] parts;
 
+    // 配置文件数据接口类（包含配置信息和读取行为）
     iniReader = new IniFileReader(conf_filename);
 
     g_connect_timeout = iniReader.getIntValue("connect_timeout", DEFAULT_CONNECT_TIMEOUT);

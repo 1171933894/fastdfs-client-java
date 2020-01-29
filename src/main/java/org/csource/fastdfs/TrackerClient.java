@@ -56,6 +56,7 @@ public class TrackerClient {
      *
      * @return tracker server Socket object, return null if fail
      */
+    // 循环获取
     public TrackerServer getTrackerServer() throws IOException {
         return this.tracker_group.getTrackerServer();
     }

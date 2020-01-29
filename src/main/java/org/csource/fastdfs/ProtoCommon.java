@@ -151,7 +151,9 @@ public class ProtoCommon {
 
     hex_len = ProtoCommon.long2buff(pkg_len);
     System.arraycopy(hex_len, 0, header, 0, hex_len.length);
+    // 请求命令
     header[PROTO_HEADER_CMD_INDEX] = cmd;
+    // 请求结果
     header[PROTO_HEADER_STATUS_INDEX] = errno;
     return header;
   }
