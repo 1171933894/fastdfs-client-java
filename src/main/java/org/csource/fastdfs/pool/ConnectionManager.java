@@ -35,6 +35,7 @@ public class ConnectionManager {
     private Condition condition = lock.newCondition();
 
     /**
+     * 空闲连接数
      * free connections
      */
     private LinkedList<Connection> freeConnections = new LinkedList<Connection>();
@@ -43,6 +44,7 @@ public class ConnectionManager {
 
     }
 
+    // 每个InetSocketAddress都有自己的对象池
     public ConnectionManager(InetSocketAddress socketAddress) {
         this.inetSocketAddress = socketAddress;
     }

@@ -25,6 +25,12 @@ import java.util.Arrays;
  * @version Version 1.27
  */
 // 线程不安全
+/**
+ * 多种文件上传<br/>
+ * 1)上传File Buffer（字节数组）<br/>
+ * 2)通过回调的方式上传文件流<br/>
+ * 3)上传本地文件<br/>
+ */
 public class StorageClient {
     public final static Base64 base64 = new Base64('-', '_', '.', 0);
     protected TrackerServer trackerServer;

@@ -7,6 +7,9 @@ import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 该Pool管理了所有ip:port及其对应的连接池，包括tracker以及storage
+ */
 public class ConnectionPool {
     /**
      * key is ip:port, value is ConnectionManager
@@ -29,6 +32,7 @@ public class ConnectionPool {
                 }
             }
         }
+        // 延迟初始化连接，而不是在初始化Manager对象的时候一次性创建
         return connectionManager.getConnection();
     }
 
