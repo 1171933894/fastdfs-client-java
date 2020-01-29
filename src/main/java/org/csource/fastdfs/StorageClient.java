@@ -24,6 +24,7 @@ import java.util.Arrays;
  * @author Happy Fish / YuQing
  * @version Version 1.27
  */
+// 线程不安全
 public class StorageClient {
     public final static Base64 base64 = new Base64('-', '_', '.', 0);
     protected TrackerServer trackerServer;
@@ -55,6 +56,7 @@ public class StorageClient {
      * @param trackerServer the tracker server, can be null
      * @param storageServer the storage server, can be null
      */
+    // 注意：如果不需要，就不要设置storageServer实例
     public StorageClient(TrackerServer trackerServer, StorageServer storageServer) {
         this.trackerServer = trackerServer;
         this.storageServer = storageServer;
@@ -82,7 +84,7 @@ public class StorageClient {
      */
     public String[] upload_file(String local_filename, String file_ext_name,
                                 NameValuePair[] meta_list) throws IOException, MyException {
-        final String group_name = null;
+        final String group_name = null;// 没有设置groupName，则默认为null
         return this.upload_file(group_name, local_filename, file_ext_name, meta_list);
     }
 
@@ -117,11 +119,15 @@ public class StorageClient {
      * <ul><li>results[1]: the new created filename</li></ul>
      * return null if fail
      */
+    // 本地文件路径local_filename变量有两个作用：
+    // 1）获取文件流
+    // 2）获取扩展文件名
     protected String[] upload_file(byte cmd, String group_name, String local_filename, String file_ext_name,
                                    NameValuePair[] meta_list) throws IOException, MyException {
         File f = new File(local_filename);
         FileInputStream fis = new FileInputStream(f);
 
+        // 如果file_ext_name没有传值，可以从文件名中获取
         if (file_ext_name == null) {
             int nPos = local_filename.lastIndexOf('.');
             if (nPos > 0 && local_filename.length() - nPos <= ProtoCommon.FDFS_FILE_EXT_NAME_MAX_LEN + 1) {

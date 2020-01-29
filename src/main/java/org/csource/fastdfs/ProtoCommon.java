@@ -42,6 +42,7 @@ public class ProtoCommon {
   public static final byte TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITH_GROUP_ALL = 107;
   public static final byte TRACKER_PROTO_CMD_RESP = 100;
   public static final byte FDFS_PROTO_CMD_ACTIVE_TEST = 111;
+  // 上传文件的命令
   public static final byte STORAGE_PROTO_CMD_UPLOAD_FILE = 11;
   public static final byte STORAGE_PROTO_CMD_DELETE_FILE = 12;
   public static final byte STORAGE_PROTO_CMD_SET_METADATA = 13;
