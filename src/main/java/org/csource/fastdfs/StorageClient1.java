@@ -21,6 +21,11 @@ import java.io.IOException;
  * @author Happy Fish / YuQing
  * @version Version 1.27
  */
+/**
+ * StorageClient中是将File ID用Group Name和File Name两部分来表示的，
+ * 而StorageClient1中是将Group Name和File Name统一起来处理的。
+ * FastDFS Java Client的源码可以发现，StorageClient1是StorageClient的一个子类。
+ */
 public class StorageClient1 extends StorageClient {
   public static final String SPLIT_GROUP_NAME_AND_FILENAME_SEPERATOR = "/";
 
