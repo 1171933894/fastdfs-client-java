@@ -250,7 +250,7 @@ public class StorageClient {
      *
      * @param group_name      the group name of master file
      * @param master_filename the master file name to generate the slave file
-     * @param prefix_name     the prefix name to generate the slave file
+     * @param prefix_name     the prefix name to generate the slave file | 该名称为后缀，比如“_slave”。
      * @param local_filename  local filename to upload
      * @param file_ext_name   file ext name, do not include dot(.), null to extract ext name from the local filename
      * @param meta_list       meta info array
@@ -558,7 +558,7 @@ public class StorageClient {
      *
      * @param group_name        the group name of appender file
      * @param appender_filename the appender filename
-     * @param file_offset       the offset of appender file
+     * @param file_offset       the offset of appender file | 下标从1开始，不从0开始。
      * @param local_filename    local filename to append
      * @return 0 for success, != 0 for error (error no)
      */
