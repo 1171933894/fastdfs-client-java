@@ -22,6 +22,9 @@ import java.util.Arrays;
  * @author Happy Fish / YuQing
  * @version Version 1.19
  */
+/**
+ * 基于TrackerServer操作StorageServer
+ */
 public class TrackerClient {
     protected TrackerGroup tracker_group;
     protected byte errno;

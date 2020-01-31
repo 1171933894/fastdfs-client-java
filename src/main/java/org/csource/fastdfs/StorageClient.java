@@ -735,6 +735,7 @@ public class StorageClient {
         bUploadSlave = ((group_name != null && group_name.length() > 0) &&
                 (master_filename != null && master_filename.length() > 0) &&
                 (prefix_name != null));
+        // 1、client询问tracker上传到的storage，不需要附加参数
         if (bUploadSlave) {
             bNewStorageServer = this.newUpdatableStorageConnection(group_name, master_filename);
         } else {
@@ -742,6 +743,7 @@ public class StorageClient {
         }
 
         try {
+            // 2、client直接和storage通讯完成文件上传
             connection = this.storageServer.getConnection();
 
             ext_name_bs = new byte[ProtoCommon.FDFS_FILE_EXT_NAME_MAX_LEN];
@@ -1326,7 +1328,9 @@ public class StorageClient {
                              long file_offset, long download_bytes,
                              DownloadCallback callback) throws IOException, MyException {
         int result;
+        // 1、client询问tracker下载文件的storage，参数为文件标识（组名和文件名）
         boolean bNewStorageServer = this.newReadableStorageConnection(group_name, remote_filename);
+        // 2、client直接和storage通讯完成文件下载
         Connection connection = this.storageServer.getConnection();
 
         try {

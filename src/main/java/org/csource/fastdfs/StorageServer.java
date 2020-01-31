@@ -17,6 +17,11 @@ import java.net.InetSocketAddress;
  * @author Happy Fish / YuQing
  * @version Version 1.11
  */
+
+/**
+ * 存储服务器，文件和meta data都保存到存储服务器上。
+ * 如果一台StorageServer上有多个storePath，就会有多个类。
+ */
 public class StorageServer extends TrackerServer {
   protected int store_path_index = 0;
 

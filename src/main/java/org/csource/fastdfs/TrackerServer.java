@@ -22,6 +22,10 @@ import java.net.InetSocketAddress;
  * @author Happy Fish / YuQing
  * @version Version 1.11
  */
+/**
+ * 跟踪服务器，主要做调度工作，在访问上起负载均衡的作用。
+ * 记录storage server的状态，是连接Client和Storage server的枢纽。
+ */
 public class TrackerServer {
     protected InetSocketAddress inetSockAddr;
 
