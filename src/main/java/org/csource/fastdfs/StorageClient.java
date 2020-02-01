@@ -1652,6 +1652,7 @@ public class StorageClient {
         if (this.storageServer != null) {
             return false;
         } else {
+            // 防止并发问题从而新new
             TrackerClient tracker = new TrackerClient();
             this.storageServer = tracker.getFetchStorage(this.trackerServer, group_name, remote_filename);
             if (this.storageServer == null) {
